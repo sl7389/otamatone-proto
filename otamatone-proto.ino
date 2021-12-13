@@ -224,9 +224,9 @@ void setMatrix() {
 
 void quantiseCheck() {
   if (digitalRead(qSwitch) == HIGH) {
-    freq = low * pow(2, map(analogRead(A12), 35, 1023, 0, 12) / 12.0);
+    freq = low * pow(2, map(analogRead(A12), 100, 1023, 0, 12) / 12.0);
   } else {
-    freq = map(analogRead(A12), 35, 1023, low, high);
+    freq = map(analogRead(A12), 100, 1023, low, high);
   }
 
   qLastState = qCurrentState;

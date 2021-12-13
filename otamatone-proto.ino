@@ -138,6 +138,7 @@ void loop() {
   notePotVal = analogRead(A12);
   octCheck();
   quantiseCheck();
+  waveformCheck();
   setMatrix();
 
   if (notePotVal > 100) {
@@ -185,7 +186,7 @@ void setMatrix() {
       matrix.writeDisplay();
       delay(100);
     } else { // if longer, this switches it back to mode 1 or 2
-      playNotes();
+      waveformCheck();
     }
   } else if (matrixState == 4) { //not quantised
     if (millis() < mode4StartTime + 500) { //check if 1s passed
@@ -199,7 +200,7 @@ void setMatrix() {
       matrix.writeDisplay();
       delay(100);
     } else { //if longer switch back to mode 1or 2
-      playNotes();
+      waveformCheck();
     }
   } else if (matrixState == 5) {
     if (millis() < mode5StartTime + 500) {
@@ -207,7 +208,7 @@ void setMatrix() {
       matrix.drawBitmap(0, 0, upArrow_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
     } else {
-      playNotes();
+     waveformCheck();
     }
   } else if (matrixState == 6) {
     if (millis() < mode6StartTime + 500) {
@@ -215,7 +216,7 @@ void setMatrix() {
       matrix.drawBitmap(0, 0, downArrow_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
     } else {
-      playNotes();
+      waveformCheck();
     }
   }
 
@@ -281,7 +282,8 @@ void playNotes() {
   waveform2.amplitude(vol);
   mixer1.gain(0, channelVol);//sine
   mixer1.gain(1, 1.0 - channelVol);//sawt
-
+}
+void waveformCheck(){
   if (channelVol <= 0.5) {
     matrixState = 1;
   } else if (channelVol > 0.5) {
